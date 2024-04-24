@@ -14,7 +14,8 @@ OBJ = obj
 INC = inc
 BIN = bin
 OBJS = $(OBJ)/main.o
-HDRS = $(INC)/SudokuBoard.hpp $(INC)/SudokuSolver.hpp $(INC)/BFSSolver.hpp $(INC)/IDSSolver.hpp
+HDRS = $(INC)/*.hpp
+OUTS = ./*.out
 CFLAGS = -pg -std=c++11 -Wall -c -I$(INC)
 
 EXE = $(BIN)/main
@@ -22,10 +23,10 @@ EXE = $(BIN)/main
 all: $(EXE)
 
 $(BIN)/main: $(OBJS)
-	$(CXX) -pg -o $@ $(OBJS)
+	$(CXX) -o $@ $(OBJS)
 
 $(OBJ)/main.o: $(HDRS) $(SRC)/main.cpp
 	$(CXX) $(CFLAGS) -o $@ $(SRC)/main.cpp
 
 clean:
-	rm -f $(EXE) $(OBJS)
+	rm -f $(EXE) $(OBJS) $(OUTS)

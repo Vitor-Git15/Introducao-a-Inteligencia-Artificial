@@ -2,29 +2,40 @@
 #define BFSSOLVER
 
 #include "SudokuSolver.hpp"
-
+#include <queue>
+#include <tuple>
 class BFSSolver : public SudokuSolver{
     protected:
+        
         bool solve_sudoku(SudokuBoard &board){
+            std::queue<SudokuBoard> states;
             std::pair<int, int> r_c = board.get_next();
             
             if(r_c == FULL)
                 return true;
+            states.push(board);
 
-            int row = r_c.first, col = r_c.second;
+            while(!states.empty()){
+                
+                SudokuBoard current = states.front();
+                states.pop();
+                
+                r_c = current.get_next();
+                if(r_c == FULL){
+                    board = current;
+                    return true;
+                }
+                this->iterations++;
+                int row = r_c.first, col = r_c.second;
 
-            for (int elem = 1; elem <= BOARDSIZE; elem++){
-                if(board.check(row, col, elem)){
-
-                    board.insert(row, col, elem);
-
-                    if(solve_sudoku(board))
-                        return true;
-
-                    board.insert(row, col, NULL_ELEM);
+                for(int i = 1; i <= BOARDSIZE; i++){
+                    if(current.check(row, col, i)){
+                        SudokuBoard sb = current;
+                        sb.insert(row, col, i);
+                        states.push(sb);
+                    }
                 }
             }
-
             return false;
         }
 
@@ -34,8 +45,11 @@ class BFSSolver : public SudokuSolver{
     
     void solve() override{
         bool res = solve_sudoku(this->board);
-        if(res)
+
+        if(res){
             print_board();
+            std::cout << this->iterations << std::endl;
+        }
         else
             fail();
     }

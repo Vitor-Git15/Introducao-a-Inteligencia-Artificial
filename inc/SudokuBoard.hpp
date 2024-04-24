@@ -5,10 +5,11 @@
 #include <string>
 
 #define NULL_ELEM 0
+#define WIN -1
 #define SIZE_QUAD 3
 #define BOARDSIZE 9
 #define MAXELEMENTS 81
-#define FULL std::make_pair(9, 9)
+#define FULL std::make_pair(WIN, WIN)
 
 class SudokuBoard{
     private:
@@ -46,6 +47,15 @@ class SudokuBoard{
     public:
         SudokuBoard(){}
 
+        int get(int i, int j){
+            if(i >= BOARDSIZE || i < 0)
+                return -1;
+            if(j >= BOARDSIZE || j < 0)
+                return -1;
+            
+            return this->board[i][j];
+        }
+
         void insert(int ci, int cj, int elem){
             if(ci < 0 || ci >= BOARDSIZE)
                 return;
@@ -65,7 +75,6 @@ class SudokuBoard{
                 insert(line, i, (elements[i] - '0'));
         }
         void print_board(){
-            std::cout << std::endl;
             for (int i = 0; i < BOARDSIZE; i++){
                 for (int j = 0; j < BOARDSIZE; j++){
                     std::cout << board[i][j] << " ";

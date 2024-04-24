@@ -6,6 +6,7 @@
 class SudokuSolver{
     protected:
         SudokuBoard board;
+        int iterations = 0;
     public:
         SudokuSolver(SudokuBoard &board){this->board = board;}
         virtual void print_board(){ board.print_board(); }

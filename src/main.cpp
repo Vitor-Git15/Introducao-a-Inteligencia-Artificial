@@ -5,6 +5,7 @@
 #include "SudokuSolver.hpp"
 #include "BFSSolver.hpp"
 #include "IDSSolver.hpp"
+#include "UCSSolver.hpp"
 
 #define MIN_ARGS 11
 
