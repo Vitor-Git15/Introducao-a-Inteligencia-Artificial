@@ -9,6 +9,7 @@
 #define SIZE_QUAD 3
 #define BOARDSIZE 9
 #define MAXELEMENTS 81
+#define SUMMAX 405
 #define FULL std::make_pair(WIN, WIN)
 
 class SudokuBoard{
@@ -65,6 +66,19 @@ class SudokuBoard{
             this->board[ci][cj] = elem;
         }
 
+        int count_empty_blocks(){
+            int count = 0;
+            for (int i = 0; i < BOARDSIZE; i++)
+            {
+                for (int j = 0; j < BOARDSIZE; j++)
+                {
+                if(this->board[i][j] == 0)
+                    count++;
+                }
+            }
+            return count;
+        }
+
         void insert_line(int line, std::string elements){
             if(line < 0 || line >= BOARDSIZE)
                 return;
@@ -77,9 +91,9 @@ class SudokuBoard{
         void print_board(){
             for (int i = 0; i < BOARDSIZE; i++){
                 for (int j = 0; j < BOARDSIZE; j++){
-                    std::cout << board[i][j] << " ";
+                    std::cout << board[i][j];
                 }
-                std::cout << std::endl;
+                std::cout  << " ";
             }
             
         }
@@ -111,6 +125,16 @@ class SudokuBoard{
                 }
             }
             return FULL;
+        }
+
+        int get_sum(){
+            int sum = 0;
+            for (int i = 0; i < BOARDSIZE; i++){
+                for (int j = 0; j < BOARDSIZE; j++){
+                    sum += board[i][j];
+                }
+            }
+            return sum;
         }
 };
 

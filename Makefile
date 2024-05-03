@@ -16,7 +16,7 @@ BIN = bin
 OBJS = $(OBJ)/main.o
 HDRS = $(INC)/*.hpp
 OUTS = ./*.out
-CFLAGS = -pg -std=c++11 -Wall -c -I$(INC)
+CFLAGS = -pg -std=c++17 -Wall -c -I$(INC)
 
 EXE = $(BIN)/main
 

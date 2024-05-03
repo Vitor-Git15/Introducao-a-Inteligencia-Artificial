@@ -3,7 +3,7 @@
 
 #include "SudokuSolver.hpp"
 #include <queue>
-#include <tuple>
+
 class BFSSolver : public SudokuSolver{
     protected:
         
@@ -42,14 +42,18 @@ class BFSSolver : public SudokuSolver{
     public:
 
     BFSSolver(SudokuBoard &board): SudokuSolver(board){}
-    
+    BFSSolver(): SudokuSolver(){}
     void solve() override{
+        auto inicio = std::chrono::high_resolution_clock::now();
         bool res = solve_sudoku(this->board);
-
-        if(res){
+        auto resultado = std::chrono::high_resolution_clock::now() - inicio;
+        if (res)
+        {
+            long long milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(resultado).count();
             print_board();
-            std::cout << this->iterations << std::endl;
+            std::cout << iterations << " " << milliseconds << std::endl;
         }
+
         else
             fail();
     }
